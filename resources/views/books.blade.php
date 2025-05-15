@@ -10,12 +10,13 @@
     <h1>Hello World</h1>
     <p>Selamat Datang di toko BookSales</p>
 
-    @foreach ($books as $item)
+    @foreach ($books as $book)
         <ul>
-            <li>{{ $item['title'] }}</li>
-            <li>{{ $item['description'] }}</li>
-            <li>{{ $item['price'] }}</li>
-            <li>{{ $item['stock'] }}</li>
+            <li>ID: {{ $book['id'] }}</li>
+            <li>Nama Buku: {{ $book['title'] }}</li>
+            <li>Deskripsi: {{ $book['description'] }}</li>
+            <li>Harga: {{ $book['price'] }}</li>
+            <li>Stock: {{ $book['stock'] }}</li>
         </ul>
     @endforeach
 </body>

@@ -6,15 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Genre extends Model
 {
-    private $genres = [
-        ['id' => 1, 'name' => 'Fiksi'],
-        ['id' => 2, 'name' => 'Pengembangan Diri'],
-        ['id' => 3, 'name' => 'Komik'],
-        ['id' => 4, 'name' => 'Religi'],
-        ['id' => 5, 'name' => 'Ekonomi'],
-    ];
+    protected $table = 'genres';
+    // private $genres = [
+    //     ['id' => 1, 'name' => 'Fiksi'],
+    //     ['id' => 2, 'name' => 'Pengembangan Diri'],
+    //     ['id' => 3, 'name' => 'Komik'],
+    //     ['id' => 4, 'name' => 'Religi'],
+    //     ['id' => 5, 'name' => 'Ekonomi'],
+    // ];
 
-    public function getGenres() {
-        return $this->genres;
-    }
+    // public function getGenres() {
+    //     return $this->genres;
+    // }
 }
