@@ -9,9 +9,12 @@ class GenreController extends Controller
 {
     public function index() {
         $genres = Genre::all();
-        // $data = new Genre();
-        // $genres = $data->getGenres();
 
-        return view('genres', ['genres' => $genres]);
+        return response()->json([
+            "success" => true,
+            "message" => "Get all resource",
+            "data" => $genres
+        ], 200);
+        // return view('genres', ['genres' => $genres]);  => ini pertemuan 2 menggunakan Migration & Seeder
     }
 }
