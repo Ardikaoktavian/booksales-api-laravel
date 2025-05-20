@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Author extends Model
 {
     protected $table = 'authors';
+
+    protected $fillable = [
+        'name'
+    ];
+
     // private $authors = [
     //     ['id' => 1, 'name' => 'Tere Liye'],
     //     ['id' => 2, 'name' => 'Mark Manson'],
