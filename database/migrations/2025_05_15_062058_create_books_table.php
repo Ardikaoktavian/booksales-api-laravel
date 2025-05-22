@@ -18,8 +18,8 @@ public function up(): void
         $table->integer('price');
         $table->integer('stock');
         $table->string('cover_photo');
-        $table->integer('genre_id');
-        $table->Integer('author_id');
+        $table->bigInteger('genre_id');
+        $table->bigInteger('author_id');
         $table->timestamps();
 
         // // Menambahkan foreign key constraints

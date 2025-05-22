@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 
 class GenreController extends Controller
 {
+    // Framework Laravel Pertemuan 1 & 2 & 3 - Migration dan Seeder
     public function index() {
         $genres = Genre::all();
 
@@ -15,7 +16,7 @@ class GenreController extends Controller
             return response()->json([
                 "success" => true,
                 "message" => "Resource data not found!"
-            ], 200);
+            ], 404);
         }
 
         return response()->json([
@@ -23,10 +24,9 @@ class GenreController extends Controller
             "message" => "Get all resource",
             "data" => $genres
         ], 200);
-
-        // return view('genres', ['genres' => $genres]);  => ini pertemuan 2 menggunakan Migration & Seeder
     }
 
+    // Framework Laravel Pertemuan 4 - Read Create Data
     public function store(Request $request){
         // 1. Validator
         $validator = Validator::make($request->all(), [
@@ -42,7 +42,7 @@ class GenreController extends Controller
             ], 422);
         }
 
-        // // 3. Upload image
+        // // 3. Upload image -> Genre tidak menggunakan image
         // $image = $request->file('cover_photo');
         // $image->store('books', 'public');
         
@@ -58,6 +58,41 @@ class GenreController extends Controller
             "message" => "Resource added successfully!",
             "data" => $genres
         ], 201);
+    }
 
+    // Framework Laravel pertemuan 5 - Show Update & Destroy Data
+    public function show(string $id){   //show untuk menampilkan data berdasarkan id
+        $genre = Genre::find($id);
+
+         if (!$genre) {
+            return response()->json([
+                "success" => false,
+                "message" => "Resources not found!"
+            ], 404);
+        }
+
+        return response()->json([
+            "success" => true,
+            "message" => "Get detail Reource",
+            "data" => $genre
+        ], 200);
+    }
+
+    public function destroy(string $id){   //destroy untuk menghapus data berdasarkan id
+        $genre = Genre::find($id);
+
+        if (!$genre) {
+            return response()->json([
+                "success" => false,
+                "message" => "Resources not found!"
+            ], 404);
+        }
+
+        $genre->delete();
+
+        return response()->json([
+            "success" => true,
+            "message" => "Delete resource successfully"
+        ]);
     }
 }
