@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\GenreController;
@@ -10,33 +11,26 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
+Route::post('/register', [AuthController::class, 'register']); // Routing untuk melakukan register 
+Route::post('/login', [AuthController::class, 'login']); // Routing untuk melakukan login
 
-// Routing Native database pada table Books
-// Route::get('/books', [BookController::class, 'index']);
-// Route::post('/books', [BookController::class, 'store']);
-// Route::get('/books/{id}', [BookController::class, 'show']);
-// Route::post('/books/{id}', [BookController::class, 'update']);
-// Route::delete('/books/{id}', [BookController::class, 'destroy']);
+Route::middleware(['auth:api'])->group(function() { // Routing untuk grouping yang sudah login
+    
+    Route::post('/logout', [AuthController::class, 'logout']); // Pengguna bisa logout ketika sudah login
+
+    Route::middleware(['role:admin'])->group(function() { // Hanya admin yang sudah login dapat ke store, update, dan destroy
+        Route::apiResource('/books', BookController::class)->only(['store', 'update', 'destroy']);
+    });
+    
+});
 
 // Routes apiResource. Books
-Route::apiResource('/books', BookController::class);
+Route::apiResource('/books', BookController::class)->only(['index', 'show']); // Pengguna yang belum login dapat mengakses index dan show saja dari books
 
-
-// Routing Native database pada table Genres
-// Route::get('/genres', [GenreController::class, 'index']);
-// Route::post('/genres', [GenreController::class, 'store']);
-// Route::get('/genres/{id}', [GenreController::class, 'show']);
-// Route::delete('/genres/{id}', [GenreController::class, 'destroy']);
 
 // Routes apiResource. Genre
-Route::apiResource('/genres', GenreController::class);
+Route::apiResource('/genres', GenreController::class)->only(['index', 'show']); // Pengguna yang belum login dapat mengakses index dan show saja dari genre
 
-
-// Routing Native database pada table Authors
-// Route::get('/authors', [AuthorController::class, 'index']);
-// Route::post('/authors', [AuthorController::class, 'store']);
-// Route::get('/authors/{id}', [AuthorController::class, 'show']);
-// Route::delete('/authors/{id}', [AuthorController::class, 'destroy']);
 
 // Routes apiResource. Authors
-Route::apiResource('/authors', AuthorController::class);
+Route::apiResource('/authors', AuthorController::class)->only(['index', 'show']); // Pengguna yang belum login dapat mengakses index dan show saja dari author
