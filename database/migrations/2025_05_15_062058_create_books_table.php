@@ -18,13 +18,9 @@ public function up(): void
         $table->integer('price');
         $table->integer('stock');
         $table->string('cover_photo');
-        $table->bigInteger('genre_id');
-        $table->bigInteger('author_id');
+        $table->unsignedBigInteger('genre_id');
+        $table->unsignedBigInteger('author_id');
         $table->timestamps();
-
-        // // Menambahkan foreign key constraints
-        // $table->foreign('genre_id')->references('id')->on('genres');
-        // $table->foreign('author_id')->references('id')->on('authors');
     });
 }
 
